@@ -1,7 +1,9 @@
-﻿namespace UISystem.Core.PhysicalInput;
-public partial interface IInputProcessor<TInputEvent>
+﻿namespace UISystem.Core.PhysicalInput
 {
+    public partial interface IInputProcessor<TInputEvent>
+    {
 
-    void ProcessInput(TInputEvent input);
+        void ProcessInput(TInputEvent input);
 
+    }
 }

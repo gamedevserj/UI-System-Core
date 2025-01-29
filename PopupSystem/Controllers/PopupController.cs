@@ -1,63 +1,65 @@
 ﻿using System;
 using UISystem.Core.Views;
 
-namespace UISystem.Core.PopupSystem;
-internal abstract class PopupController<TViewCreator, TInputEvent, TView, TType, TResult>
-    : Controller<TViewCreator, TView, TInputEvent, TType>, IPopupController<TInputEvent, TType, TResult>
-    where TViewCreator : IViewCreator<TView>
-    where TView : IPopupView
-    where TType : Enum
-    where TResult : Enum
+namespace UISystem.Core.PopupSystem
 {
-
-    protected Action<TResult> _onHideAction;
-
-    protected readonly IPopupsManager<TInputEvent, TType, TResult> _popupsManager;
-
-    public abstract TResult PressedReturnPopupResult { get; }
-
-    public PopupController(TViewCreator viewCreator, IPopupsManager<TInputEvent, TType, TResult> popupsManager)
+    internal abstract class PopupController<TViewCreator, TInputEvent, TView, TType, TResult>
+        : Controller<TViewCreator, TView, TInputEvent, TType>, IPopupController<TInputEvent, TType, TResult>
+        where TViewCreator : IViewCreator<TView>
+        where TView : IPopupView
+        where TType : Enum
+        where TResult : Enum
     {
-        _viewCreator = viewCreator;
-        _popupsManager = popupsManager;
-    }
 
-    public override void Init()
-    {
-        if (!_viewCreator.IsViewValid)
+        protected Action<TResult> _onHideAction;
+
+        protected readonly IPopupsManager<TInputEvent, TType, TResult> _popupsManager;
+
+        public abstract TResult PressedReturnPopupResult { get; }
+
+        public PopupController(TViewCreator viewCreator, IPopupsManager<TInputEvent, TType, TResult> popupsManager)
         {
-            _view = _viewCreator.CreateView();
-            SetupElements();
+            _viewCreator = viewCreator;
+            _popupsManager = popupsManager;
         }
-    }
 
-    public void Show(string message, Action<TResult> onHideAction, bool instant = false)
-    {
-        CanReceivePhysicalInput = false;
-        _view.SetMessage(message);
-        _onHideAction = onHideAction;
-        _view.Show(() =>
+        public override void Init()
         {
-            CanReceivePhysicalInput = true;
-            _view.FocusElement();
-        }, instant);
-    }
+            if (!_viewCreator.IsViewValid)
+            {
+                _view = _viewCreator.CreateView();
+                SetupElements();
+            }
+        }
 
-    public void Hide(TResult result, bool instant = false)
-    {
-        CanReceivePhysicalInput = false;
-        _view.Hide(() =>
+        public void Show(string message, Action<TResult> onHideAction, bool instant = false)
         {
-            CanReceivePhysicalInput = true;
-            _onHideAction?.Invoke(result);
-            DestroyView();
-        }, instant);
-    }
-    protected override void DestroyView() => _viewCreator.DestroyView();
+            CanReceivePhysicalInput = false;
+            _view.SetMessage(message);
+            _onHideAction = onHideAction;
+            _view.Show(() =>
+            {
+                CanReceivePhysicalInput = true;
+                _view.FocusElement();
+            }, instant);
+        }
 
-    public override void OnReturnButtonDown()
-    {
-        _popupsManager.HidePopup(PressedReturnPopupResult);
-    }
+        public void Hide(TResult result, bool instant = false)
+        {
+            CanReceivePhysicalInput = false;
+            _view.Hide(() =>
+            {
+                CanReceivePhysicalInput = true;
+                _onHideAction?.Invoke(result);
+                DestroyView();
+            }, instant);
+        }
+        protected override void DestroyView() => _viewCreator.DestroyView();
 
+        public override void OnReturnButtonDown()
+        {
+            _popupsManager.HidePopup(PressedReturnPopupResult);
+        }
+
+    }
 }

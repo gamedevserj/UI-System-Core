@@ -1,9 +1,11 @@
 ﻿using UISystem.Core.Views;
 
-namespace UISystem.Core.MenuSystem;
-internal interface IMenuView<TInteractableElement> : IView
+namespace UISystem.Core.MenuSystem
 {
+    internal interface IMenuView<TInteractableElement> : IView
+    {
 
-    void SetLastSelectedElement(TInteractableElement lastSelectedElement);
+        void SetLastSelectedElement(TInteractableElement lastSelectedElement);
 
+    }
 }

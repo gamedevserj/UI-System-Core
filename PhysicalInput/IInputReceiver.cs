@@ -1,11 +1,13 @@
-﻿namespace UISystem.Core.PhysicalInput;
-public partial interface IInputReceiver<TInputEvent>
+﻿namespace UISystem.Core.PhysicalInput
 {
+    public partial interface IInputReceiver<TInputEvent>
+    {
 
-    bool CanReceivePhysicalInput { get; }
+        bool CanReceivePhysicalInput { get; }
 
-    void OnReturnButtonDown();
-    void OnPauseButtonDown();
-    void OnAnyButtonDown(TInputEvent inputEvent);
+        void OnReturnButtonDown();
+        void OnPauseButtonDown();
+        void OnAnyButtonDown(TInputEvent inputEvent);
 
+    }
 }
