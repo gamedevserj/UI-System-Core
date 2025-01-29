@@ -1,6 +1,4 @@
-﻿using UISystem.Core.Transitions;
-
-namespace UISystem.Core.Views
+﻿namespace UISystem.Core.Views
 {
     internal interface IViewCreator<TView>
     {
