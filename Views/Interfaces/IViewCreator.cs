@@ -6,7 +6,6 @@
         bool IsViewValid { get; }
         TView CreateView();
         void DestroyView();
-        void SwitchFocusAvailability(bool enable);
 
     }
 }

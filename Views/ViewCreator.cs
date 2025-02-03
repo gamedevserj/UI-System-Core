@@ -16,10 +16,7 @@
         }
 
         public abstract TView CreateView();
-
         public abstract void DestroyView();
-
-        public abstract void SwitchFocusAvailability(bool enable);
 
     }
 }
