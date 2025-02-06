@@ -23,9 +23,9 @@ namespace UISystem.Core.PopupSystem
             OnControllerSwitch?.Invoke(_currentController);
         }
 
-        public void HidePopup(TResult result)
+        public void HidePopup(TResult result, bool instant = false)
         {
-            _currentController?.Hide(result);
+            _currentController?.Hide(result, instant);
             _currentController = null;
         }
 
