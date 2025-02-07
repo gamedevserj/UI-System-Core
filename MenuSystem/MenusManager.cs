@@ -4,7 +4,7 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
-    public partial class MenusManager<TInputEvent, TType> : Manager<IMenuController<TType>, TType>, IMenusManager<TType>
+    public partial class MenusManager<TType> : Manager<IMenuController<TType>, TType>, IMenusManager<TType>
         where TType : Enum
     {
 

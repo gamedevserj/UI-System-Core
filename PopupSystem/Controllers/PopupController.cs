@@ -3,7 +3,7 @@ using UISystem.Core.Views;
 
 namespace UISystem.Core.PopupSystem
 {
-    internal abstract partial class PopupController<TViewCreator, TInputEvent, TView, TType, TResult>
+    internal abstract partial class PopupController<TViewCreator, TView, TType, TResult>
         : Controller<TViewCreator, TView, TType>, IPopupController<TType, TResult>
         where TViewCreator : IViewCreator<TView>
         where TView : IPopupView
