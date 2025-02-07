@@ -1,6 +1,6 @@
 ﻿namespace UISystem.Core.Views
 {
-    internal interface IViewCreator<TView>
+    internal partial interface IViewCreator<TView>
     {
 
         bool IsViewValid { get; }

@@ -2,7 +2,7 @@
 
 namespace UISystem.Core.Transitions
 {
-    public interface IViewTransition
+    public partial interface IViewTransition
     {
 
         void Hide(Action onHidden, bool instant);

@@ -3,7 +3,7 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
-    public partial interface IMenuController<TInputEvent, TType> : IController<TInputEvent, TType>, IInputReceiver<TInputEvent>
+    public partial interface IMenuController<TType> : IController<TType>, IInputReceiver
         where TType : Enum
     {
 

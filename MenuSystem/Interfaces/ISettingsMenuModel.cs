@@ -1,6 +1,6 @@
 ﻿namespace UISystem.Core.MenuSystem
 {
-    public interface ISettingsMenuModel : IMenuModel
+    public partial interface ISettingsMenuModel : IMenuModel
     {
 
         bool HasUnappliedSettings { get; }

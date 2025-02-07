@@ -2,7 +2,7 @@
 
 namespace UISystem.Core
 {
-    internal interface IManager<TController, TInputEvent, TType> where TController : IController<TInputEvent, TType> where TType : Enum
+    internal partial interface IManager<TController, TType> where TController : IController<TType> where TType : Enum
     {
         void Init(TController[] controllers);
     }

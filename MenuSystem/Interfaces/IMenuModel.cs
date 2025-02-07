@@ -1,6 +1,6 @@
 ﻿namespace UISystem.Core.MenuSystem
 {
-    public interface IMenuModel
+    public partial interface IMenuModel
     {
     }
 }

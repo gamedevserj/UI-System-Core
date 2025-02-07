@@ -1,6 +1,6 @@
 ﻿namespace UISystem.Core.Views
 {
-    internal abstract class ViewCreator<TPrefab, TView, TParent> : IViewCreator<TView>
+    internal abstract partial class ViewCreator<TPrefab, TView, TParent> : IViewCreator<TView>
     {
 
         protected TView _view;

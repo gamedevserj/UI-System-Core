@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace UISystem.Core
 {
-    public abstract class Manager<TController, TInputEvent, TType>
-        : IManager<TController, TInputEvent, TType>
-        where TController : IController<TInputEvent, TType>
+    public abstract partial class Manager<TController, TType> : IManager<TController, TType>
+        where TController : IController<TType>
         where TType : Enum
     {
 

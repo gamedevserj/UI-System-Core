@@ -3,7 +3,7 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core
 {
-    internal abstract class Controller<TViewCreator, TView, TInputEvent, TType> : IController<TInputEvent, TType>, IInputReceiver<TInputEvent>
+    internal abstract partial class Controller<TViewCreator, TView, TType> : IController<TType>, IInputReceiver
         where TType : Enum
     {
 
@@ -16,7 +16,6 @@ namespace UISystem.Core
         public abstract void Init();
         public abstract void OnReturnButtonDown();
         public virtual void OnPauseButtonDown() { } // for in-game menu
-        public virtual void OnAnyButtonDown(TInputEvent inputEvent) { }  // for rebind menu
         protected abstract void DestroyView();
         protected abstract void SetupElements();
 

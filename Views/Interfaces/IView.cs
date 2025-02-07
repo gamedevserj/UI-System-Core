@@ -2,7 +2,7 @@
 
 namespace UISystem.Core.Views
 {
-    internal interface IView
+    internal partial interface IView
     {
 
         void Init();

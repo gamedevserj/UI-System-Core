@@ -3,7 +3,7 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
-    public partial interface IPopupController<TInputEvent, TType, TResult> : IController<TInputEvent, TType>, IInputReceiver<TInputEvent>
+    public partial interface IPopupController<TType, TResult> : IController<TType>, IInputReceiver
         where TType : Enum
         where TResult : Enum
     {

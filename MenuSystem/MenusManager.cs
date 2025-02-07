@@ -4,13 +4,13 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
-    public partial class MenusManager<TInputEvent, TType> : Manager<IMenuController<TInputEvent, TType>, TInputEvent, TType>, IMenusManager<TInputEvent, TType>
+    public partial class MenusManager<TInputEvent, TType> : Manager<IMenuController<TType>, TType>, IMenusManager<TType>
         where TType : Enum
     {
 
-        public static Action<IInputReceiver<TInputEvent>> OnControllerSwitch;
+        public static Action<IInputReceiver> OnControllerSwitch;
 
-        private Stack<IMenuController<TInputEvent, TType>> _previousMenus = new Stack<IMenuController<TInputEvent, TType>>();
+        private Stack<IMenuController<TType>> _previousMenus = new Stack<IMenuController<TType>>();
 
         public void ShowMenu(TType menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {

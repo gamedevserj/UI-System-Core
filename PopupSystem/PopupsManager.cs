@@ -3,13 +3,13 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
-    public partial class PopupsManager<TInputEvent, TType, TResult> : Manager<IPopupController<TInputEvent, TType, TResult>, TInputEvent, TType>,
-        IPopupsManager<TInputEvent, TType, TResult>
+    public partial class PopupsManager<TType, TResult> : Manager<IPopupController<TType, TResult>, TType>,
+        IPopupsManager<TType, TResult>
         where TType : Enum
         where TResult : Enum
     {
 
-        public static Action<IInputReceiver<TInputEvent>> OnControllerSwitch;
+        public static Action<IInputReceiver> OnControllerSwitch;
 
         public void ShowPopup(TType popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
         {

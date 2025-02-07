@@ -2,7 +2,7 @@
 
 namespace UISystem.Core
 {
-    public interface IController<TInputEvent, TType> where TType : Enum
+    public partial interface IController<TType> where TType : Enum
     {
 
         TType Type { get; }

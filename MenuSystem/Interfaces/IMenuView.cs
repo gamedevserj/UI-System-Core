@@ -2,7 +2,7 @@
 
 namespace UISystem.Core.MenuSystem
 {
-    internal interface IMenuView<TInteractableElement> : IView
+    internal partial interface IMenuView<TInteractableElement> : IView
     {
 
         void SetLastSelectedElement(TInteractableElement lastSelectedElement);

@@ -3,8 +3,8 @@ using UISystem.Core.Views;
 
 namespace UISystem.Core.MenuSystem
 {
-    internal abstract class MenuController<TViewCreator, TView, TModel, TInputEvent, TInteractableElement, TType>
-        : Controller<TViewCreator, TView, TInputEvent, TType>, IMenuController<TInputEvent, TType>
+    internal abstract partial class MenuController<TViewCreator, TView, TModel, TInteractableElement, TType>
+        : Controller<TViewCreator, TView, TType>, IMenuController<TType>
         where TViewCreator : IViewCreator<TView>
         where TView : IMenuView<TInteractableElement>
         where TModel : IMenuModel
@@ -13,12 +13,12 @@ namespace UISystem.Core.MenuSystem
 
         protected TModel _model;
 
-        protected readonly IMenusManager<TInputEvent, TType> _menusManager;
+        protected readonly IMenusManager<TType> _menusManager;
 
         // when you want to temporarly disable retuning to previous menu, i.e. when player is rebinding keys
         public bool CanReturnToPreviousMenu { get; set; } = true;
 
-        public MenuController(TViewCreator viewCreator, TModel model, IMenusManager<TInputEvent, TType> menusManager)
+        public MenuController(TViewCreator viewCreator, TModel model, IMenusManager<TType> menusManager)
         {
             _viewCreator = viewCreator;
             _model = model;

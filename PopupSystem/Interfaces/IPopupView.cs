@@ -2,7 +2,7 @@
 
 namespace UISystem.Core.PopupSystem
 {
-    internal interface IPopupView : IView
+    internal partial interface IPopupView : IView
     {
 
         void SetMessage(string message);
