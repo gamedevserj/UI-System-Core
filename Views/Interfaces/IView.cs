@@ -9,7 +9,7 @@ namespace UISystem.Core.Views
         void Show(Action onShown, bool instant = false);
         void Hide(Action onHidden, bool instant = false);
         void DestroyView();
-        void SwitchFocusAvailability(bool enable);
+        void SwitchInteractability(bool enable);
         void FocusElement();
 
     }

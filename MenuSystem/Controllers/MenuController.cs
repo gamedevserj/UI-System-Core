@@ -77,9 +77,9 @@ namespace UISystem.Core.MenuSystem
         protected override void DestroyView() => _viewCreator.DestroyView();
 
         // when showing popups
-        protected void SwitchFocusAvailability(bool enable)
+        protected void SwitchInteractability(bool enable)
         {
-            _view.SwitchFocusAvailability(enable);
+            _view.SwitchInteractability(enable);
             if (enable)
                 _view.FocusElement();
         }
