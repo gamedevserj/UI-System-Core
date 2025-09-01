@@ -3,15 +3,14 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
-    public partial class PopupsManager<TType, TResult> : Manager<IPopupController<TType, TResult>, TType>,
-        IPopupsManager<TType, TResult>
-        where TType : Enum
+    public partial class PopupsManager<TResult> : Manager<IPopupController<TResult>>,
+        IPopupsManager<TResult>
         where TResult : Enum
     {
 
         public static Action<IInputReceiver> OnControllerSwitch;
 
-        public void ShowPopup(TType popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
+        public void ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
         {
             _currentController = _controllers[popupType];
             _currentController.Init();

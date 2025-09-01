@@ -3,14 +3,12 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core
 {
-    internal abstract partial class Controller<TViewCreator, TView, TType> : IController<TType>, IInputReceiver
-        where TType : Enum
+    internal abstract partial class Controller<TViewCreator, TView> : IController, IInputReceiver
     {
 
         protected TViewCreator _viewCreator;
         protected TView _view;
 
-        public abstract TType Type { get; }
         public bool CanReceivePhysicalInput { get; protected set; } // to prevent input processing during transitions
 
         public abstract void Init();

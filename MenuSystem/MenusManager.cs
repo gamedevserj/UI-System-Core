@@ -4,19 +4,18 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
-    public partial class MenusManager<TType> : Manager<IMenuController<TType>, TType>, IMenusManager<TType>
-        where TType : Enum
+    public partial class MenusManager : Manager<IMenuController>, IMenusManager
     {
 
         public static Action<IInputReceiver> OnControllerSwitch;
 
-        private Stack<IMenuController<TType>> _previousMenus = new Stack<IMenuController<TType>>();
+        private Stack<IMenuController> _previousMenus = new Stack<IMenuController>();
 
-        public void ShowMenu(TType menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
+        public void ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {
             if (_currentController != null)
             {
-                if (_currentController.Type.Equals(menuType))
+                if (_currentController.GetType().Equals(menuType))
                     return;
 
                 _currentController.Hide(stackingType, () => ChangeMenu(menuType, stackingType, onNewMenuShown, instant), instant);
@@ -31,11 +30,11 @@ namespace UISystem.Core.MenuSystem
         {
             if (_previousMenus.Count > 0)
             {
-                ShowMenu(_previousMenus.Peek().Type, StackingType.Remove, onComplete, instant);
+                ShowMenu(_previousMenus.Peek().GetType(), StackingType.Remove, onComplete, instant);
             }
         }
 
-        private void ChangeMenu(TType menuType, StackingType stackingType, Action onNewMenuShown = null, bool instant = false)
+        private void ChangeMenu(Type menuType, StackingType stackingType, Action onNewMenuShown = null, bool instant = false)
         {
             var controller = _controllers[menuType];
             controller.Init();

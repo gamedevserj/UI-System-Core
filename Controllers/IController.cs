@@ -2,10 +2,9 @@
 
 namespace UISystem.Core
 {
-    public partial interface IController<TType> where TType : Enum
+    public partial interface IController
     {
 
-        TType Type { get; }
         void Init();
 
     }

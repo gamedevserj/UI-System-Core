@@ -3,21 +3,20 @@ using UISystem.Core.Views;
 
 namespace UISystem.Core.PopupSystem
 {
-    internal abstract partial class PopupController<TViewCreator, TView, TType, TResult>
-        : Controller<TViewCreator, TView, TType>, IPopupController<TType, TResult>
+    internal abstract partial class PopupController<TViewCreator, TView, TResult>
+        : Controller<TViewCreator, TView>, IPopupController<TResult>
         where TViewCreator : IViewCreator<TView>
         where TView : IPopupView
-        where TType : Enum
         where TResult : Enum
     {
 
         protected Action<TResult> _onHideAction;
 
-        protected readonly IPopupsManager<TType, TResult> _popupsManager;
+        protected readonly IPopupsManager<TResult> _popupsManager;
 
         public abstract TResult PressedReturnPopupResult { get; }
 
-        public PopupController(TViewCreator viewCreator, IPopupsManager<TType, TResult> popupsManager)
+        public PopupController(TViewCreator viewCreator, IPopupsManager<TResult> popupsManager)
         {
             _viewCreator = viewCreator;
             _popupsManager = popupsManager;
