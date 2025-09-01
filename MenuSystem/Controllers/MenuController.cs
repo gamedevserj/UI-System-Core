@@ -3,12 +3,11 @@ using UISystem.Core.Views;
 
 namespace UISystem.Core.MenuSystem
 {
-    internal abstract partial class MenuController<TViewCreator, TView, TModel, TInteractableElement, TType>
+    internal abstract partial class MenuController<TViewCreator, TView, TModel, TInteractableElement>
         : Controller<TViewCreator, TView>, IMenuController
         where TViewCreator : IViewCreator<TView>
         where TView : IMenuView<TInteractableElement>
         where TModel : IMenuModel
-        where TType : Type
     {
 
         protected TModel _model;
