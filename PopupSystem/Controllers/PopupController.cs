@@ -48,7 +48,6 @@ namespace UISystem.Core.PopupSystem
             CanReceivePhysicalInput = false;
             _view.Hide(() =>
             {
-                CanReceivePhysicalInput = true;
                 _onHideAction?.Invoke(result);
                 DestroyView();
             }, instant);
