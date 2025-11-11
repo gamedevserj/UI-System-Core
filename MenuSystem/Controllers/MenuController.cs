@@ -51,7 +51,6 @@ namespace UISystem.Core.MenuSystem
             _view.Hide(() =>
             {
                 onComplete?.Invoke();
-                CanReceivePhysicalInput = true;
             }, instant);
         }
 

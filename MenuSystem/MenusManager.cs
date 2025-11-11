@@ -9,7 +9,7 @@ namespace UISystem.Core.MenuSystem
 
         public static Action<IInputReceiver> OnControllerSwitch;
 
-        private Stack<IMenuController> _previousMenus = new Stack<IMenuController>();
+        private readonly Stack<IMenuController> _previousMenus = new Stack<IMenuController>();
 
         public void ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {
