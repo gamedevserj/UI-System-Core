@@ -37,7 +37,7 @@ namespace UISystem.Core.MenuSystem
         public virtual async Task Show(Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            await _view.Show(() => { }, instant);
+            await _view.Show(instant);
             onComplete?.Invoke();
             _view.FocusElement();
             CanReceivePhysicalInput = true;
@@ -46,7 +46,7 @@ namespace UISystem.Core.MenuSystem
         public virtual async Task Hide(StackingType stackingType, Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            await _view.Hide(() => { }, instant);
+            await _view.Hide(instant);
             onComplete?.Invoke();
         }
 

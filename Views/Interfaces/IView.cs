@@ -7,8 +7,8 @@ namespace UISystem.Core.Views
     {
 
         void Init();
-        Task Show(Action onShown, bool instant = false);
-        Task Hide(Action onHidden, bool instant = false);
+        Task Show(bool instant = false);
+        Task Hide(bool instant = false);
         void DestroyView();
         void SwitchInteractability(bool enable);
         void FocusElement();

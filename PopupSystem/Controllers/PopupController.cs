@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UISystem.Core.Views;
 
 namespace UISystem.Core.PopupSystem
@@ -31,26 +32,22 @@ namespace UISystem.Core.PopupSystem
             }
         }
 
-        public void Show(string message, Action<TResult> onHideAction, bool instant = false)
+        public async Task Show(string message, Action<TResult> onHideAction, bool instant = false)
         {
             CanReceivePhysicalInput = false;
             _view.SetMessage(message);
             _onHideAction = onHideAction;
-            _view.Show(() =>
-            {
-                CanReceivePhysicalInput = true;
-                _view.FocusElement();
-            }, instant);
+            await _view.Show(instant);
+            CanReceivePhysicalInput = true;
+            _view.FocusElement();
         }
 
-        public void Hide(TResult result, bool instant = false)
+        public async Task Hide(TResult result, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            _view.Hide(() =>
-            {
-                _onHideAction?.Invoke(result);
-                DestroyView();
-            }, instant);
+            await _view.Hide(instant);
+            _onHideAction?.Invoke(result);
+            DestroyView();
         }
         protected override void DestroyView() => _viewCreator.DestroyView();
 
