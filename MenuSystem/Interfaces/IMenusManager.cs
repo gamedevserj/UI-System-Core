@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
     public partial interface IMenusManager
     {
+        event Action<IInputReceiver> OnControllerSwitch;
 
         void Init(Dictionary<Type, IMenuController> controllers);
         void ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false);

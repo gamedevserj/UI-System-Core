@@ -7,7 +7,7 @@ namespace UISystem.Core.MenuSystem
     public partial class MenusManager : Manager<IMenuController>, IMenusManager
     {
 
-        public static Action<IInputReceiver> OnControllerSwitch;
+        public event Action<IInputReceiver> OnControllerSwitch;
 
         private readonly Stack<KeyValuePair<Type, IMenuController>?> _previousMenus = new Stack<KeyValuePair<Type, IMenuController>?>();
 

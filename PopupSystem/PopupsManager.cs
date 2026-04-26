@@ -9,7 +9,7 @@ namespace UISystem.Core.PopupSystem
         where TResult : Enum
     {
 
-        public static Action<IInputReceiver> OnControllerSwitch;
+        public event Action<IInputReceiver> OnControllerSwitch;
 
         public void ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
         {
