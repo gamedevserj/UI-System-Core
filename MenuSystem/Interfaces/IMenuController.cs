@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
@@ -8,8 +9,8 @@ namespace UISystem.Core.MenuSystem
 
         bool CanReturnToPreviousMenu { get; set; }
 
-        void Hide(StackingType stackingType, Action onComplete = null, bool instant = false);
-        void Show(Action onComplete = null, bool instant = false);
+        Task Hide(StackingType stackingType, Action onComplete = null, bool instant = false);
+        Task Show(Action onComplete = null, bool instant = false);
         void ProcessStacking(StackingType stackingType);
 
     }

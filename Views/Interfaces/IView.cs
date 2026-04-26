@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace UISystem.Core.Views
 {
@@ -6,8 +7,8 @@ namespace UISystem.Core.Views
     {
 
         void Init();
-        void Show(Action onShown, bool instant = false);
-        void Hide(Action onHidden, bool instant = false);
+        Task Show(Action onShown, bool instant = false);
+        Task Hide(Action onHidden, bool instant = false);
         void DestroyView();
         void SwitchInteractability(bool enable);
         void FocusElement();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UISystem.Core.Views;
 
 namespace UISystem.Core.MenuSystem
@@ -33,24 +34,20 @@ namespace UISystem.Core.MenuSystem
             }
         }
 
-        public virtual void Show(Action onComplete = null, bool instant = false)
+        public virtual async Task Show(Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            _view.Show(() =>
-            {
-                onComplete?.Invoke();
-                _view.FocusElement();
-                CanReceivePhysicalInput = true;
-            }, instant);
+            await _view.Show(() => { }, instant);
+            onComplete?.Invoke();
+            _view.FocusElement();
+            CanReceivePhysicalInput = true;
         }
 
-        public virtual void Hide(StackingType stackingType, Action onComplete = null, bool instant = false)
+        public virtual async Task Hide(StackingType stackingType, Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            _view.Hide(() =>
-            {
-                onComplete?.Invoke();
-            }, instant);
+            await _view.Hide(() => { }, instant);
+            onComplete?.Invoke();
         }
 
         public virtual void ProcessStacking(StackingType stackingType)
