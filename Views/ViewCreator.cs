@@ -2,14 +2,13 @@
 {
     internal abstract partial class ViewCreator<TPrefab, TView, TParent> : IViewCreator<TView>
     {
-
         protected TView _view;
         protected readonly TPrefab _prefab;
         protected readonly TParent _parent;
 
         public abstract bool IsViewValid { get; }
 
-        public ViewCreator(TPrefab prefab, TParent parent)
+        protected ViewCreator(TPrefab prefab, TParent parent)
         {
             _prefab = prefab;
             _parent = parent;
@@ -17,6 +16,5 @@
 
         public abstract TView CreateView();
         public abstract void DestroyView();
-
     }
 }
