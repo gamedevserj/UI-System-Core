@@ -19,15 +19,15 @@ namespace UISystem.Core.PopupSystem
 
         public PopupController(TViewCreator viewCreator, IPopupsManager<TResult> popupsManager)
         {
-            _viewCreator = viewCreator;
+            ViewCreator = viewCreator;
             _popupsManager = popupsManager;
         }
 
         public override void Init()
         {
-            if (!_viewCreator.IsViewValid)
+            if (!ViewCreator.IsViewValid)
             {
-                _view = _viewCreator.CreateView();
+                View = ViewCreator.CreateView();
                 SetupElements();
             }
         }
@@ -35,21 +35,21 @@ namespace UISystem.Core.PopupSystem
         public async Task Show(string message, Action<TResult> onHideAction, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            _view.SetMessage(message);
+            View.SetMessage(message);
             _onHideAction = onHideAction;
-            await _view.Show(instant);
+            await View.Show(instant);
             CanReceivePhysicalInput = true;
-            _view.FocusElement();
+            View.FocusElement();
         }
 
         public async Task Hide(TResult result, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            await _view.Hide(instant);
+            await View.Hide(instant);
             _onHideAction?.Invoke(result);
             DestroyView();
         }
-        protected override void DestroyView() => _viewCreator.DestroyView();
+        protected override void DestroyView() => ViewCreator.DestroyView();
 
         public override void OnReturnButtonDown()
         {

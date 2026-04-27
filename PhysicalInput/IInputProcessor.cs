@@ -1,9 +1,15 @@
 ﻿namespace UISystem.Core.PhysicalInput
 {
-    public partial interface IInputProcessor<TInputEvent>
+    /// <summary>
+    /// Defines the contract for input processor.
+    /// </summary>
+    /// <typeparam name="TInputEvent">Type of event to process.</typeparam>
+    public partial interface IInputProcessor<in TInputEvent>
     {
-
+        /// <summary>
+        /// Processes input.
+        /// </summary>
+        /// <param name="input">Input event to process.</param>
         void ProcessInput(TInputEvent input);
-
     }
 }

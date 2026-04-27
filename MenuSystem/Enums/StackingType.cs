@@ -1,5 +1,8 @@
 ﻿namespace UISystem.Core.MenuSystem
 {
+    /// <summary>
+    /// Type of stacking for menus.
+    /// </summary>
     public enum StackingType
     {
         Add = 0,

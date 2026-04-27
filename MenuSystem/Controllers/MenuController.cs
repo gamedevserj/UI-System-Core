@@ -4,81 +4,90 @@ using UISystem.Core.Views;
 
 namespace UISystem.Core.MenuSystem
 {
+    /// <summary>
+    /// Generic class for menu controllers.
+    /// </summary>
+    /// <typeparam name="TViewCreator">Type of view creator. Must implement <see cref="IViewCreator{TView}"/>.</typeparam>
+    /// <typeparam name="TView">Type of view.Must implement <see cref="IMenuView{TInteractableElement}"/>.</typeparam>
+    /// <typeparam name="TInteractableElement">Type of interactable element.</typeparam>
     internal abstract partial class MenuController<TViewCreator, TView, TInteractableElement>
         : Controller<TViewCreator, TView>, IMenuController
         where TViewCreator : IViewCreator<TView>
         where TView : IMenuView<TInteractableElement>
     {
-        protected readonly IMenusManager _menusManager;
-
-        // when you want to temporarly disable retuning to previous menu, i.e. when player is rebinding keys
-        public bool CanReturnToPreviousMenu { get; set; } = true;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuController{TViewCreator, TView, TInteractableElement}"/> class.
+        /// </summary>
+        /// <param name="viewCreator">View creator.</param>
+        /// <param name="menusManager">Menus manager.</param>
         protected MenuController(TViewCreator viewCreator, IMenusManager menusManager)
         {
-            _viewCreator = viewCreator;
-            _menusManager = menusManager;
+            ViewCreator = viewCreator;
+            MenusManager = menusManager;
         }
 
+        /// <inheritdoc/>
+        public bool CanReturnToPreviousMenu { get; set; } = true; // when you want to temporarly disable retuning to previous menu, i.e. when player is rebinding keys
+
+        /// <summary>
+        /// Gets menus manager.
+        /// </summary>
+        protected IMenusManager MenusManager { get; private set; }
+
+        /// <inheritdoc/>
         public override void Init()
         {
-            if (!_viewCreator.IsViewValid)
+            if (!ViewCreator.IsViewValid)
             {
-                _view = _viewCreator.CreateView();
+                View = ViewCreator.CreateView();
                 SetupElements();
             }
         }
 
+        /// <inheritdoc/>
         public virtual async Task Show(Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            await _view.Show(instant);
+            await View.Show(instant);
             onComplete?.Invoke();
-            _view.FocusElement();
+            View.FocusElement();
             CanReceivePhysicalInput = true;
         }
 
+        /// <inheritdoc/>
         public virtual async Task Hide(StackingType stackingType, Action onComplete = null, bool instant = false)
         {
             CanReceivePhysicalInput = false;
-            await _view.Hide(instant);
+            await View.Hide(instant);
             onComplete?.Invoke();
         }
 
+        /// <inheritdoc/>
         public virtual void ProcessStacking(StackingType stackingType)
         {
-            switch (stackingType)
-            {
-                case StackingType.Add:
-                    break;
-                case StackingType.Remove:
-                    DestroyView();
-                    break;
-                case StackingType.Clear:
-                    DestroyView();
-                    break;
-                case StackingType.Replace:
-                    DestroyView();
-                    break;
-                default:
-                    break;
-            }
-        }
-        protected override void DestroyView() => _viewCreator.DestroyView();
-
-        // when showing popups
-        protected void SwitchInteractability(bool enable)
-        {
-            _view.SwitchInteractability(enable);
-            if (enable)
-                _view.FocusElement();
+            if (stackingType == StackingType.Remove || stackingType == StackingType.Clear || stackingType == StackingType.Replace)
+                DestroyView();
         }
 
+        /// <inheritdoc/>
         public override void OnReturnButtonDown()
         {
             if (CanReturnToPreviousMenu)
-                _menusManager.ReturnToPreviousMenu();
+                MenusManager.ReturnToPreviousMenu();
         }
 
+        /// <inheritdoc/>
+        protected override void DestroyView() => ViewCreator.DestroyView();
+
+        /// <summary>
+        /// Switches menu interactability (i.e. when showing popups).
+        /// </summary>
+        /// <param name="enable">Whether to enable or disable menu interactability.</param>
+        protected void SwitchInteractability(bool enable)
+        {
+            View.SwitchInteractability(enable);
+            if (enable)
+                View.FocusElement();
+        }
     }
 }

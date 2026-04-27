@@ -4,23 +4,29 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
+    /// <summary>
+    /// A class to manage menu controllers.
+    /// </summary>
     public partial class MenusManager : Manager<IMenuController>, IMenusManager
     {
-
-        public event Action<IInputReceiver> OnControllerSwitch;
-
         private readonly Stack<KeyValuePair<Type, IMenuController>?> _previousMenus = new Stack<KeyValuePair<Type, IMenuController>?>();
 
+        /// <summary>
+        /// Event to perform when controller is switched.
+        /// </summary>
+        public event Action<IInputReceiver> OnControllerSwitch;
+
+        /// <inheritdoc/>
         public void ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {
-            if (_currentController != null)
+            if (CurrentController != null)
             {
-                if (_currentController?.Key == menuType)
+                if (CurrentController?.Key == menuType)
                     return;
 
-                _currentController?.Value.Hide(
-                    stackingType, 
-                    () => ChangeMenu(menuType, stackingType, onNewMenuShown, instant), 
+                CurrentController?.Value.Hide(
+                    stackingType,
+                    () => ChangeMenu(menuType, stackingType, onNewMenuShown, instant),
                     instant);
             }
             else
@@ -29,6 +35,7 @@ namespace UISystem.Core.MenuSystem
             }
         }
 
+        /// <inheritdoc/>
         public void ReturnToPreviousMenu(Action onComplete = null, bool instant = false)
         {
             if (_previousMenus.Count > 0)
@@ -39,14 +46,13 @@ namespace UISystem.Core.MenuSystem
 
         private void ChangeMenu(Type menuType, StackingType stackingType, Action onNewMenuShown = null, bool instant = false)
         {
-            var controller = new KeyValuePair<Type, IMenuController>(menuType, _controllers[menuType]);
+            var controller = new KeyValuePair<Type, IMenuController>(menuType, Controllers[menuType]);
             controller.Value.Init();
 
             switch (stackingType)
             {
                 case StackingType.Add:
-                    _previousMenus.Push(_currentController);
-                    
+                    _previousMenus.Push(CurrentController);
                     break;
                 case StackingType.Remove:
                     _previousMenus.Pop();
@@ -56,6 +62,7 @@ namespace UISystem.Core.MenuSystem
                     {
                         menuController?.Value.ProcessStacking(stackingType);
                     }
+
                     _previousMenus.Clear();
                     break;
                 case StackingType.Replace:
@@ -63,15 +70,17 @@ namespace UISystem.Core.MenuSystem
                 default:
                     break;
             }
-            _currentController?.Value.ProcessStacking(stackingType);
-            _currentController = controller;
 
-            _currentController?.Value.Show(() =>
-            {
-                OnControllerSwitch?.Invoke(_currentController?.Value);
-                onNewMenuShown?.Invoke();
-            }, instant);
+            CurrentController?.Value.ProcessStacking(stackingType);
+            CurrentController = controller;
+
+            CurrentController?.Value.Show(
+                () =>
+                {
+                    OnControllerSwitch?.Invoke(CurrentController?.Value);
+                    onNewMenuShown?.Invoke();
+                },
+                instant);
         }
-
     }
 }

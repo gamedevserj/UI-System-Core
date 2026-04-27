@@ -4,30 +4,38 @@ using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
+    /// <summary>
+    /// A class to manage popup controllers.
+    /// </summary>
+    /// <typeparam name="TResult">Type of result available in popup.</typeparam>
     public partial class PopupsManager<TResult> : Manager<IPopupController<TResult>>,
         IPopupsManager<TResult>
         where TResult : Enum
     {
-
+        /// <inheritdoc/>
         public event Action<IInputReceiver> OnControllerSwitch;
 
+        /// <inheritdoc/>
         public void ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
         {
-            _currentController = new KeyValuePair<Type, IPopupController<TResult>>(popupType, _controllers[popupType]);
-            _currentController?.Value.Init();
-            _currentController?.Value.Show(message, (result) =>
-            {
-                OnControllerSwitch?.Invoke(null);
-                onHideAction?.Invoke(result);
-            }, instant);
-            OnControllerSwitch?.Invoke(_currentController?.Value);
+            CurrentController = new KeyValuePair<Type, IPopupController<TResult>>(popupType, Controllers[popupType]);
+            CurrentController?.Value.Init();
+            CurrentController?.Value.Show(
+                message,
+                (result) =>
+                {
+                    OnControllerSwitch?.Invoke(null);
+                    onHideAction?.Invoke(result);
+                },
+                instant);
+            OnControllerSwitch?.Invoke(CurrentController?.Value);
         }
 
+        /// <inheritdoc/>
         public void HidePopup(TResult result, bool instant = false)
         {
-            _currentController?.Value.Hide(result, instant);
-            _currentController = null;
+            CurrentController?.Value.Hide(result, instant);
+            CurrentController = null;
         }
-
     }
 }
