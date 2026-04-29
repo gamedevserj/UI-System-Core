@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
@@ -29,19 +30,13 @@ namespace UISystem.Core.PopupSystem
         /// <param name="message">Popup message.</param>
         /// <param name="onHideAction">Action to perform when popup is hidden.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        void ShowPopup(Type popupType, string message, Action<TPopupResult> onHideAction = null, bool instant = false);
+        Task ShowPopup(Type popupType, string message, Action<TPopupResult> onHideAction = null, bool instant = false);
 
         /// <summary>
         /// Hides the popup.
         /// </summary>
         /// <param name="result">Result that was selected in popup.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        void HidePopup(TPopupResult result, bool instant = false);
-
-        /// <summary>
-        /// Returns to previous menu.
-        /// </summary>
-        /// <param name="onComplete">Action to perform when returned.</param>
-        /// <param name="instant">Whether transition should happen instantly.</param>
+        Task HidePopup(TPopupResult result, bool instant = false);
     }
 }

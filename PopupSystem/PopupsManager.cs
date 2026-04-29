@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Godot;
 using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
@@ -16,11 +18,11 @@ namespace UISystem.Core.PopupSystem
         public event Action<IInputReceiver> OnControllerSwitch;
 
         /// <inheritdoc/>
-        public void ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
+        public async Task ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
         {
             CurrentController = new KeyValuePair<Type, IPopupController<TResult>>(popupType, Controllers[popupType]);
             CurrentController?.Value.Init();
-            CurrentController?.Value.Show(
+            await CurrentController?.Value.Show(
                 message,
                 (result) =>
                 {
@@ -32,9 +34,9 @@ namespace UISystem.Core.PopupSystem
         }
 
         /// <inheritdoc/>
-        public void HidePopup(TResult result, bool instant = false)
+        public async Task HidePopup(TResult result, bool instant = false)
         {
-            CurrentController?.Value.Hide(result, instant);
+            await CurrentController?.Value.Hide(result, instant);
             CurrentController = null;
         }
     }

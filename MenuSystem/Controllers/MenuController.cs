@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AsyncAwaitBestPractices;
 using UISystem.Core.Views;
 
 namespace UISystem.Core.MenuSystem
@@ -73,7 +74,7 @@ namespace UISystem.Core.MenuSystem
         public override void OnReturnButtonDown()
         {
             if (CanReturnToPreviousMenu)
-                MenusManager.ReturnToPreviousMenu();
+                MenusManager.ReturnToPreviousMenu().SafeFireAndForget();
         }
 
         /// <inheritdoc/>

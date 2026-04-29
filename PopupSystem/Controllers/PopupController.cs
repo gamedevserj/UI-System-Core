@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AsyncAwaitBestPractices;
 using UISystem.Core.Views;
 
 namespace UISystem.Core.PopupSystem
@@ -72,7 +73,7 @@ namespace UISystem.Core.PopupSystem
         /// <inheritdoc/>
         public override void OnReturnButtonDown()
         {
-            PopupsManager.HidePopup(PressedReturnPopupResult);
+            PopupsManager.HidePopup(PressedReturnPopupResult).SafeFireAndForget();
         }
 
         /// <inheritdoc/>
