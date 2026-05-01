@@ -9,17 +9,15 @@ namespace UISystem.Core.PopupSystem
     /// A class to manage popup controllers.
     /// </summary>
     /// <typeparam name="TResult">Type of result available in popup.</typeparam>
-    public partial class PopupsManager<TResult> : Manager<IPopupController<TResult>>,
-        IPopupsManager<TResult>
-        where TResult : Enum
+    public partial class PopupsManager : Manager<IPopupController>, IPopupsManager
     {
         /// <inheritdoc/>
         public event Action<IInputReceiver> OnControllerSwitch;
 
         /// <inheritdoc/>
-        public async Task ShowPopup(Type popupType, string message, Action<TResult> onHideAction = null, bool instant = false)
+        public async Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false)
         {
-            CurrentController = new KeyValuePair<Type, IPopupController<TResult>>(popupType, Controllers[popupType]);
+            CurrentController = new KeyValuePair<Type, IPopupController>(popupType, Controllers[popupType]);
             CurrentController?.Value.Init();
             await CurrentController?.Value.Show(
                 message,
@@ -33,7 +31,7 @@ namespace UISystem.Core.PopupSystem
         }
 
         /// <inheritdoc/>
-        public async Task HidePopup(TResult result, bool instant = false)
+        public async Task HidePopup(PopupResult result, bool instant = false)
         {
             await CurrentController?.Value.Hide(result, instant);
             CurrentController = null;

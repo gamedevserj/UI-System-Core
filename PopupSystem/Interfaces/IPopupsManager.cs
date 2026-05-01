@@ -8,9 +8,7 @@ namespace UISystem.Core.PopupSystem
     /// <summary>
     /// Defines the contract for popups manager.
     /// </summary>
-    /// <typeparam name="TPopupResult">Type of result that popup can process. Must be <see cref="Enum"/>.</typeparam>
-    public partial interface IPopupsManager<TPopupResult>
-        where TPopupResult : Enum
+    public partial interface IPopupsManager
     {
         /// <summary>
         /// Event to perform when controller is switched.
@@ -21,7 +19,7 @@ namespace UISystem.Core.PopupSystem
         /// Initializes the manager.
         /// </summary>
         /// <param name="controllers">Controllers that will be managed.</param>
-        void Init(Dictionary<Type, IPopupController<TPopupResult>> controllers);
+        void Init(Dictionary<Type, IPopupController> controllers);
 
         /// <summary>
         /// Shows the popup.
@@ -30,13 +28,13 @@ namespace UISystem.Core.PopupSystem
         /// <param name="message">Popup message.</param>
         /// <param name="onHideAction">Action to perform when popup is hidden.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        Task ShowPopup(Type popupType, string message, Action<TPopupResult> onHideAction = null, bool instant = false);
+        Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false);
 
         /// <summary>
         /// Hides the popup.
         /// </summary>
         /// <param name="result">Result that was selected in popup.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        Task HidePopup(TPopupResult result, bool instant = false);
+        Task HidePopup(PopupResult result, bool instant = false);
     }
 }
