@@ -10,14 +10,13 @@ namespace UISystem.Core.MenuSystem
     /// </summary>
     /// <typeparam name="TViewCreator">Type of view creator. Must implement <see cref="IViewCreator{TView}"/>.</typeparam>
     /// <typeparam name="TView">Type of view.Must implement <see cref="IMenuView{TInteractableElement}"/>.</typeparam>
-    /// <typeparam name="TInteractableElement">Type of interactable element.</typeparam>
-    internal abstract partial class MenuController<TViewCreator, TView, TInteractableElement>
+    internal abstract partial class MenuController<TViewCreator, TView>
         : Controller<TViewCreator, TView>, IMenuController
         where TViewCreator : IViewCreator<TView>
-        where TView : IMenuView<TInteractableElement>
+        where TView : IMenuView
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuController{TViewCreator, TView, TInteractableElement}"/> class.
+        /// Initializes a new instance of the <see cref="MenuController{TViewCreator, TView}"/> class.
         /// </summary>
         /// <param name="viewCreator">View creator.</param>
         /// <param name="menusManager">Menus manager.</param>
