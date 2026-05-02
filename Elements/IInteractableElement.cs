@@ -4,7 +4,7 @@
     /// Defines contract for focusable UI element.
     /// Godot and Unity have different setup for focusability, so their methods are defined in they own repos.
     /// </summary>
-    public partial interface IFocusableUiElement
+    public partial interface IInteractableElement
     {
     }
 }

@@ -12,6 +12,6 @@ namespace UISystem.Core.MenuSystem
         /// Sets the element that was last interacted with.
         /// </summary>
         /// <param name="lastSelectedElement">Element that was last interacted with.</param>
-        void SetLastSelectedElement(IFocusableUiElement lastSelectedElement);
+        void SetLastSelectedElement(IInteractableElement lastSelectedElement);
     }
 }
