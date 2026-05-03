@@ -12,22 +12,19 @@ namespace UISystem.Core.MenuSystem
         private readonly Stack<IMenuController> _previousMenus = new();
 
         /// <inheritdoc/>
-        public async Task ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
+        public async Task ShowMenu<TMenuView>(StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
+            where TMenuView : IMenuView
         {
+            var type = typeof(TMenuView);
             if (CurrentController != null)
             {
-                if (CurrentController.ViewType == menuType)
+                if (CurrentController.ViewType == type)
                     return;
 
-                await CurrentController.Hide(
-                    stackingType,
-                    async () => await ChangeMenu(menuType, stackingType, onNewMenuShown, instant),
-                    instant);
+                await CurrentController.Hide(stackingType, instant: instant);
             }
-            else
-            {
-                await ChangeMenu(menuType, stackingType, onNewMenuShown, instant);
-            }
+
+            await ChangeMenu(type, stackingType, onNewMenuShown, instant);
         }
 
         /// <inheritdoc/>
@@ -35,7 +32,9 @@ namespace UISystem.Core.MenuSystem
         {
             if (_previousMenus.Count > 0)
             {
-                await ShowMenu(_previousMenus.Peek().ViewType, StackingType.Remove, onComplete, instant);
+                var type = _previousMenus.Peek().ViewType;
+                await CurrentController.Hide(StackingType.Remove, instant: instant);
+                await ChangeMenu(type, StackingType.Remove, instant: instant);
             }
         }
 
@@ -69,13 +68,9 @@ namespace UISystem.Core.MenuSystem
             CurrentController?.ProcessStacking(stackingType);
             CurrentController = controller;
 
-            await CurrentController.Show(
-                () =>
-                {
-                    OnControllerSwitched(CurrentController);
-                    onNewMenuShown?.Invoke();
-                },
-                instant);
+            await CurrentController.Show(instant: instant);
+            OnControllerSwitched(CurrentController);
+            onNewMenuShown?.Invoke();
         }
     }
 }

@@ -11,11 +11,12 @@ namespace UISystem.Core.PopupSystem
         /// <summary>
         /// Shows the popup.
         /// </summary>
-        /// <param name="popupType">Type of popup. Define a common PopupView class and use typeof() with inherited classes.</param>
+        /// <typeparam name="TPopupView">Type of popup view. Must implement <see cref="IPopupView"/>.</typeparam>
         /// <param name="message">Popup message.</param>
         /// <param name="onHideAction">Action to perform when popup is hidden.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false);
+        Task ShowPopup<TPopupView>(string message, Action<PopupResult> onHideAction = null, bool instant = false)
+            where TPopupView : IPopupView;
 
         /// <summary>
         /// Hides the popup.

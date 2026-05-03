@@ -5,7 +5,7 @@ namespace UISystem.Core.Views
     /// <summary>
     /// Defines the contract for view interface.
     /// </summary>
-    internal partial interface IView
+    public partial interface IView
     {
         /// <summary>
         /// Initializes the view.

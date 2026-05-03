@@ -27,9 +27,6 @@ namespace UISystem.Core.MenuSystem
         }
 
         /// <inheritdoc/>
-        public Type ViewType => ViewCreator.ViewType;
-
-        /// <inheritdoc/>
         public bool CanReturnToPreviousMenu { get; set; } = true; // when you want to temporarly disable retuning to previous menu, i.e. when player is rebinding keys
 
         /// <summary>

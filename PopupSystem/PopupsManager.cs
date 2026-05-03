@@ -10,9 +10,10 @@ namespace UISystem.Core.PopupSystem
     public partial class PopupsManager : Manager<IPopupController>, IPopupsManager
     {
         /// <inheritdoc/>
-        public async Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false)
+        public async Task ShowPopup<TPopupView>(string message, Action<PopupResult> onHideAction = null, bool instant = false)
+            where TPopupView : IPopupView
         {
-            CurrentController = Controllers[popupType];
+            CurrentController = Controllers[typeof(TPopupView)];
             CurrentController.Init();
             await CurrentController.Show(
                 message,
