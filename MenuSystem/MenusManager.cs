@@ -21,7 +21,7 @@ namespace UISystem.Core.MenuSystem
                 if (CurrentController.ViewType == type)
                     return;
 
-                await CurrentController.Hide(stackingType, instant: instant);
+                await CurrentController.Hide(stackingType, instant);
             }
 
             await ChangeMenu(type, stackingType, instant);
@@ -33,7 +33,7 @@ namespace UISystem.Core.MenuSystem
             if (_previousMenus.Count > 0)
             {
                 var type = _previousMenus.Peek().ViewType;
-                await CurrentController.Hide(StackingType.Remove, instant: instant);
+                await CurrentController.Hide(StackingType.Remove, instant);
                 await ChangeMenu(type, StackingType.Remove, instant);
             }
         }
@@ -69,7 +69,7 @@ namespace UISystem.Core.MenuSystem
             CurrentController?.ProcessStacking(stackingType);
             CurrentController = controller;
 
-            await CurrentController.Show(instant: instant);
+            await CurrentController.Show(instant);
             OnControllerSwitched(CurrentController);
         }
     }
