@@ -1,4 +1,6 @@
-﻿namespace UISystem.Core.Views
+﻿using System;
+
+namespace UISystem.Core.Views
 {
     /// <summary>
     /// Generic class for view creators.
@@ -18,6 +20,9 @@
             Prefab = prefab;
             Parent = parent;
         }
+
+        /// <inheritdoc/>
+        public Type ViewType => typeof(TView);
 
         /// <inheritdoc/>
         public abstract bool IsViewValid { get; }

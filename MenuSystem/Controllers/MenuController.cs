@@ -9,7 +9,7 @@ namespace UISystem.Core.MenuSystem
     /// Generic class for menu controllers.
     /// </summary>
     /// <typeparam name="TViewCreator">Type of view creator. Must implement <see cref="IViewCreator{TView}"/>.</typeparam>
-    /// <typeparam name="TView">Type of view.Must implement <see cref="IMenuView{TInteractableElement}"/>.</typeparam>
+    /// <typeparam name="TView">Type of view.Must implement <see cref="IMenuView"/>.</typeparam>
     internal abstract partial class MenuController<TViewCreator, TView>
         : Controller<TViewCreator, TView>, IMenuController
         where TViewCreator : IViewCreator<TView>
@@ -25,6 +25,9 @@ namespace UISystem.Core.MenuSystem
             ViewCreator = viewCreator;
             MenusManager = menusManager;
         }
+
+        /// <inheritdoc/>
+        public Type ViewType => ViewCreator.ViewType;
 
         /// <inheritdoc/>
         public bool CanReturnToPreviousMenu { get; set; } = true; // when you want to temporarly disable retuning to previous menu, i.e. when player is rebinding keys

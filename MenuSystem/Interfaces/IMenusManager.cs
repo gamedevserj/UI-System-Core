@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UISystem.Core.PhysicalInput;
 
@@ -8,19 +7,8 @@ namespace UISystem.Core.MenuSystem
     /// <summary>
     /// Defines the contract for menus manager.
     /// </summary>
-    public partial interface IMenusManager
+    public partial interface IMenusManager : IManager<IMenuController>
     {
-        /// <summary>
-        /// Event to perform when controller is switched.
-        /// </summary>
-        event Action<IInputReceiver> OnControllerSwitch;
-
-        /// <summary>
-        /// Initializes the manager.
-        /// </summary>
-        /// <param name="controllers">Controllers that will be managed.</param>
-        void Init(Dictionary<Type, IMenuController> controllers);
-
         /// <summary>
         /// Shows the menu.
         /// </summary>

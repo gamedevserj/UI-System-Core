@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.MenuSystem
 {
@@ -10,19 +9,14 @@ namespace UISystem.Core.MenuSystem
     /// </summary>
     public partial class MenusManager : Manager<IMenuController>, IMenusManager
     {
-        private readonly Stack<KeyValuePair<Type, IMenuController>?> _previousMenus = new Stack<KeyValuePair<Type, IMenuController>?>();
-
-        /// <summary>
-        /// Event to perform when controller is switched.
-        /// </summary>
-        public event Action<IInputReceiver> OnControllerSwitch;
+        private readonly Stack<KeyValuePair<Type, IMenuController>?> _previousMenus = new();
 
         /// <inheritdoc/>
         public async Task ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {
             if (CurrentController != null)
             {
-                if (CurrentController?.Key == menuType)
+                if (CurrentController?.Value.ViewType == menuType)
                     return;
 
                 await CurrentController?.Value.Hide(
@@ -78,7 +72,7 @@ namespace UISystem.Core.MenuSystem
             await CurrentController?.Value.Show(
                 () =>
                 {
-                    OnControllerSwitch?.Invoke(CurrentController?.Value);
+                    OnControllerSwitched(CurrentController?.Value);
                     onNewMenuShown?.Invoke();
                 },
                 instant);

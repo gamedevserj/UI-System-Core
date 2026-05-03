@@ -1,4 +1,6 @@
-﻿namespace UISystem.Core.Views
+﻿using System;
+
+namespace UISystem.Core.Views
 {
     /// <summary>
     /// Defines the contract for view creator.
@@ -6,6 +8,11 @@
     /// <typeparam name="TView">Type of view to create.</typeparam>
     internal partial interface IViewCreator<out TView>
     {
+        /// <summary>
+        /// Gets the type of view.
+        /// </summary>
+        Type ViewType { get; }
+
         /// <summary>
         /// Gets a value indicating whether view is valid.
         /// </summary>

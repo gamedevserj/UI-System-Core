@@ -1,26 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
     /// <summary>
     /// Defines the contract for popups manager.
     /// </summary>
-    public partial interface IPopupsManager
+    public partial interface IPopupsManager : IManager<IPopupController>
     {
-        /// <summary>
-        /// Event to perform when controller is switched.
-        /// </summary>
-        event Action<IInputReceiver> OnControllerSwitch;
-
-        /// <summary>
-        /// Initializes the manager.
-        /// </summary>
-        /// <param name="controllers">Controllers that will be managed.</param>
-        void Init(Dictionary<Type, IPopupController> controllers);
-
         /// <summary>
         /// Shows the popup.
         /// </summary>

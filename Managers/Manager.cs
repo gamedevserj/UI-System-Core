@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core
 {
@@ -10,6 +11,9 @@ namespace UISystem.Core
     public abstract partial class Manager<TController> : IManager<TController>
         where TController : IController
     {
+        /// <inheritdoc/>
+        public event Action<IInputReceiver> ControllerSwitched;
+
         /// <summary>
         /// Gets or sets current controller.
         /// </summary>
@@ -20,13 +24,18 @@ namespace UISystem.Core
         /// </summary>
         protected Dictionary<Type, TController> Controllers { get; set; } = new Dictionary<Type, TController>();
 
-        /// <summary>
-        /// Initializes manager.
-        /// </summary>
-        /// <param name="controllers">Controllers that will be managed.</param>
-        public void Init(Dictionary<Type, TController> controllers)
+        /// <inheritdoc/>
+        public void Init(TController[] controllers)
         {
-            Controllers = controllers;
+            for (int i = 0; i < controllers.Length; i++)
+            {
+                Controllers.Add(controllers[i].ViewType, controllers[i]);
+            }
+        }
+
+        protected void OnControllerSwitched(IInputReceiver receiver)
+        {
+            ControllerSwitched?.Invoke(receiver);
         }
     }
 }

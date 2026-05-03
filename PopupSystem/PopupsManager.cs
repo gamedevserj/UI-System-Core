@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core.PopupSystem
 {
@@ -12,9 +11,6 @@ namespace UISystem.Core.PopupSystem
     public partial class PopupsManager : Manager<IPopupController>, IPopupsManager
     {
         /// <inheritdoc/>
-        public event Action<IInputReceiver> OnControllerSwitch;
-
-        /// <inheritdoc/>
         public async Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false)
         {
             CurrentController = new KeyValuePair<Type, IPopupController>(popupType, Controllers[popupType]);
@@ -23,11 +19,11 @@ namespace UISystem.Core.PopupSystem
                 message,
                 (result) =>
                 {
-                    OnControllerSwitch?.Invoke(null);
+                    OnControllerSwitched(null);
                     onHideAction?.Invoke(result);
                 },
                 instant);
-            OnControllerSwitch?.Invoke(CurrentController?.Value);
+            OnControllerSwitched(CurrentController?.Value);
         }
 
         /// <inheritdoc/>

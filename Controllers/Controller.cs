@@ -1,4 +1,6 @@
-﻿using UISystem.Core.PhysicalInput;
+﻿using System;
+using UISystem.Core.PhysicalInput;
+using UISystem.Core.Views;
 
 namespace UISystem.Core
 {
@@ -8,7 +10,12 @@ namespace UISystem.Core
     /// <typeparam name="TViewCreator">Type of view creator.</typeparam>
     /// <typeparam name="TView">Type of view.</typeparam>
     internal abstract partial class Controller<TViewCreator, TView> : IController, IInputReceiver
+        where TViewCreator : IViewCreator<TView>
+        where TView : IView
     {
+        /// <inheritdoc/>
+        public Type ViewType => ViewCreator.ViewType;
+
         /// <summary>
         /// Gets or sets a value indicating whether controller can receive physical input (keyboard/joystick).
         /// </summary>

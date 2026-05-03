@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using UISystem.Core.PhysicalInput;
 
 namespace UISystem.Core
 {
@@ -7,13 +7,18 @@ namespace UISystem.Core
     /// Defines the contract for common manager classes.
     /// </summary>
     /// <typeparam name="TController">Type of controller that will be managed. Must implement <see cref="IController"/>.</typeparam>
-    internal partial interface IManager<TController>
+    public partial interface IManager<in TController>
         where TController : IController
     {
+        /// <summary>
+        /// Event to perform when controller is switched.
+        /// </summary>
+        event Action<IInputReceiver> ControllerSwitched;
+
         /// <summary>
         /// Initializes manager.
         /// </summary>
         /// <param name="controllers">Controllers that will be managed.</param>
-        void Init(Dictionary<Type, TController> controllers);
+        void Init(TController[] controllers);
     }
 }
