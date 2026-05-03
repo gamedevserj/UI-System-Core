@@ -12,7 +12,7 @@ namespace UISystem.Core.MenuSystem
         private readonly Stack<IMenuController> _previousMenus = new();
 
         /// <inheritdoc/>
-        public async Task ShowMenu<TMenuView>(StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
+        public async Task ShowMenu<TMenuView>(StackingType stackingType = StackingType.Add, bool instant = false)
             where TMenuView : IMenuView
         {
             var type = typeof(TMenuView);
@@ -24,21 +24,21 @@ namespace UISystem.Core.MenuSystem
                 await CurrentController.Hide(stackingType, instant: instant);
             }
 
-            await ChangeMenu(type, stackingType, onNewMenuShown, instant);
+            await ChangeMenu(type, stackingType, instant);
         }
 
         /// <inheritdoc/>
-        public async Task ReturnToPreviousMenu(Action onComplete = null, bool instant = false)
+        public async Task ReturnToPreviousMenu(bool instant = false)
         {
             if (_previousMenus.Count > 0)
             {
                 var type = _previousMenus.Peek().ViewType;
                 await CurrentController.Hide(StackingType.Remove, instant: instant);
-                await ChangeMenu(type, StackingType.Remove, instant: instant);
+                await ChangeMenu(type, StackingType.Remove, instant);
             }
         }
 
-        private async Task ChangeMenu(Type menuType, StackingType stackingType, Action onNewMenuShown = null, bool instant = false)
+        private async Task ChangeMenu(Type menuType, StackingType stackingType, bool instant = false)
         {
             var controller = Controllers[menuType];
             controller.Init();
@@ -60,6 +60,7 @@ namespace UISystem.Core.MenuSystem
                     _previousMenus.Clear();
                     break;
                 case StackingType.Replace:
+                    // no need to do anything, current controller will be replaced
                     break;
                 default:
                     break;
@@ -70,7 +71,6 @@ namespace UISystem.Core.MenuSystem
 
             await CurrentController.Show(instant: instant);
             OnControllerSwitched(CurrentController);
-            onNewMenuShown?.Invoke();
         }
     }
 }

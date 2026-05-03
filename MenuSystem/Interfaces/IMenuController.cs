@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using UISystem.Core.PhysicalInput;
 
@@ -18,16 +17,14 @@ namespace UISystem.Core.MenuSystem
         /// Hides the view.
         /// </summary>
         /// <param name="stackingType">Type of stacking.</param>
-        /// <param name="onComplete">Action to perform when view is hidden.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        Task Hide(StackingType stackingType, Action onComplete = null, bool instant = false);
+        Task Hide(StackingType stackingType, bool instant = false);
 
         /// <summary>
         /// Shows the view.
         /// </summary>
-        /// <param name="onComplete">Action to perform when view is shown.</param>
         /// <param name="instant">Whether transition should happen instantly.</param>
-        Task Show(Action onComplete = null, bool instant = false);
+        Task Show(bool instant = false);
 
         /// <summary>
         /// Controls the view based on staicking type.
