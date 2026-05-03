@@ -17,7 +17,7 @@ namespace UISystem.Core
         /// <summary>
         /// Gets or sets current controller.
         /// </summary>
-        protected KeyValuePair<Type, TController>? CurrentController { get; set; }
+        protected TController CurrentController { get; set; }
 
         /// <summary>
         /// Gets or sets available controllers.
@@ -33,6 +33,10 @@ namespace UISystem.Core
             }
         }
 
+        /// <summary>
+        /// Calls an event when controller is switched.
+        /// </summary>
+        /// <param name="receiver">New controller that will receive input events.</param>
         protected void OnControllerSwitched(IInputReceiver receiver)
         {
             ControllerSwitched?.Invoke(receiver);

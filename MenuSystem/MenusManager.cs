@@ -9,17 +9,17 @@ namespace UISystem.Core.MenuSystem
     /// </summary>
     public partial class MenusManager : Manager<IMenuController>, IMenusManager
     {
-        private readonly Stack<KeyValuePair<Type, IMenuController>?> _previousMenus = new();
+        private readonly Stack<IMenuController> _previousMenus = new();
 
         /// <inheritdoc/>
         public async Task ShowMenu(Type menuType, StackingType stackingType = StackingType.Add, Action onNewMenuShown = null, bool instant = false)
         {
             if (CurrentController != null)
             {
-                if (CurrentController?.Value.ViewType == menuType)
+                if (CurrentController.ViewType == menuType)
                     return;
 
-                await CurrentController?.Value.Hide(
+                await CurrentController.Hide(
                     stackingType,
                     async () => await ChangeMenu(menuType, stackingType, onNewMenuShown, instant),
                     instant);
@@ -35,14 +35,14 @@ namespace UISystem.Core.MenuSystem
         {
             if (_previousMenus.Count > 0)
             {
-                await ShowMenu(_previousMenus.Peek()?.Key, StackingType.Remove, onComplete, instant);
+                await ShowMenu(_previousMenus.Peek().ViewType, StackingType.Remove, onComplete, instant);
             }
         }
 
         private async Task ChangeMenu(Type menuType, StackingType stackingType, Action onNewMenuShown = null, bool instant = false)
         {
-            var controller = new KeyValuePair<Type, IMenuController>(menuType, Controllers[menuType]);
-            controller.Value.Init();
+            var controller = Controllers[menuType];
+            controller.Init();
 
             switch (stackingType)
             {
@@ -55,7 +55,7 @@ namespace UISystem.Core.MenuSystem
                 case StackingType.Clear:
                     foreach (var menuController in _previousMenus)
                     {
-                        menuController?.Value.ProcessStacking(stackingType);
+                        menuController.ProcessStacking(stackingType);
                     }
 
                     _previousMenus.Clear();
@@ -66,13 +66,13 @@ namespace UISystem.Core.MenuSystem
                     break;
             }
 
-            CurrentController?.Value.ProcessStacking(stackingType);
+            CurrentController?.ProcessStacking(stackingType);
             CurrentController = controller;
 
-            await CurrentController?.Value.Show(
+            await CurrentController.Show(
                 () =>
                 {
-                    OnControllerSwitched(CurrentController?.Value);
+                    OnControllerSwitched(CurrentController);
                     onNewMenuShown?.Invoke();
                 },
                 instant);

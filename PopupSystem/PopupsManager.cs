@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace UISystem.Core.PopupSystem
@@ -13,9 +12,9 @@ namespace UISystem.Core.PopupSystem
         /// <inheritdoc/>
         public async Task ShowPopup(Type popupType, string message, Action<PopupResult> onHideAction = null, bool instant = false)
         {
-            CurrentController = new KeyValuePair<Type, IPopupController>(popupType, Controllers[popupType]);
-            CurrentController?.Value.Init();
-            await CurrentController?.Value.Show(
+            CurrentController = Controllers[popupType];
+            CurrentController.Init();
+            await CurrentController.Show(
                 message,
                 (result) =>
                 {
@@ -23,13 +22,13 @@ namespace UISystem.Core.PopupSystem
                     onHideAction?.Invoke(result);
                 },
                 instant);
-            OnControllerSwitched(CurrentController?.Value);
+            OnControllerSwitched(CurrentController);
         }
 
         /// <inheritdoc/>
         public async Task HidePopup(PopupResult result, bool instant = false)
         {
-            await CurrentController?.Value.Hide(result, instant);
+            await CurrentController.Hide(result, instant);
             CurrentController = null;
         }
     }
