@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines the contract for settings menu model.
     /// </summary>
-    public partial interface ISettingsMenuModel : IMenuModel
+    public partial interface ISettingsMenuModel
     {
         /// <summary>
         /// Gets a value indicating whether menu has unapplied settings.
