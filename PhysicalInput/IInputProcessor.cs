@@ -4,7 +4,7 @@
     /// Defines the contract for input processor.
     /// </summary>
     /// <typeparam name="TInputEvent">Type of event to process.</typeparam>
-    public partial interface IInputProcessor<in TInputEvent>
+    public interface IInputProcessor<in TInputEvent>
     {
         /// <summary>
         /// Processes input.

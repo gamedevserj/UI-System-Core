@@ -6,7 +6,7 @@ namespace UISystem.Core.MenuSystem
     /// <summary>
     /// Defines the contract for menu view.
     /// </summary>
-    public partial interface IMenuView : IView
+    public interface IMenuView : IView
     {
         /// <summary>
         /// Sets the element that was last interacted with.

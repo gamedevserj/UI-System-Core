@@ -5,7 +5,7 @@ namespace UISystem.Core
     /// <summary>
     /// Defines the contract for common controllers.
     /// </summary>
-    public partial interface IController
+    public interface IController
     {
         /// <summary>
         /// Gets view type.

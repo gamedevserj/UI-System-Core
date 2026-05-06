@@ -6,7 +6,7 @@ namespace UISystem.Core.MenuSystem
     /// <summary>
     /// Defines the contract for menu controller.
     /// </summary>
-    public partial interface IMenuController : IController, IInputReceiver
+    public interface IMenuController : IController, IInputReceiver
     {
         /// <summary>
         /// Gets or sets a value indicating whether controller can return to previous menu.

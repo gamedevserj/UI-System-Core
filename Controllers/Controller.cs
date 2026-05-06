@@ -9,7 +9,7 @@ namespace UISystem.Core
     /// </summary>
     /// <typeparam name="TViewCreator">Type of view creator.</typeparam>
     /// <typeparam name="TView">Type of view.</typeparam>
-    internal abstract partial class Controller<TViewCreator, TView> : IController, IInputReceiver
+    internal abstract class Controller<TViewCreator, TView> : IController, IInputReceiver
         where TViewCreator : IViewCreator<TView>
         where TView : IView
     {

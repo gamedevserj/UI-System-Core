@@ -5,7 +5,7 @@ namespace UISystem.Core.PopupSystem
     /// <summary>
     /// Defines the contract for popup view.
     /// </summary>
-    public partial interface IPopupView : IView
+    public interface IPopupView : IView
     {
         /// <summary>
         /// Sets the popup message.

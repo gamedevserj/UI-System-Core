@@ -7,7 +7,7 @@ namespace UISystem.Core.MenuSystem
     /// <summary>
     /// A class to manage menu controllers.
     /// </summary>
-    public partial class MenusManager : Manager<IMenuController>, IMenusManager
+    public class MenusManager : Manager<IMenuController>, IMenusManager
     {
         private readonly Stack<IMenuController> _previousMenus = new();
 

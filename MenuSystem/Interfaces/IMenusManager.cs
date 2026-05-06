@@ -5,7 +5,7 @@ namespace UISystem.Core.MenuSystem
     /// <summary>
     /// Defines the contract for menus manager.
     /// </summary>
-    public partial interface IMenusManager : IManager<IMenuController>
+    public interface IMenusManager : IManager<IMenuController>
     {
         /// <summary>
         /// Shows the menu.

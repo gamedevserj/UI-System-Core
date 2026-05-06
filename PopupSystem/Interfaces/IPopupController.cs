@@ -7,7 +7,7 @@ namespace UISystem.Core.PopupSystem
     /// <summary>
     /// Defines the contract for popup controller.
     /// </summary>
-    public partial interface IPopupController : IController, IInputReceiver
+    public interface IPopupController : IController, IInputReceiver
     {
         /// <summary>
         /// Hides popup.

@@ -5,7 +5,7 @@ namespace UISystem.Core.Transitions
     /// <summary>
     /// Defines the contract for view transition.
     /// </summary>
-    public partial interface IViewTransition
+    public interface IViewTransition
     {
         /// <summary>
         /// Hides the view.

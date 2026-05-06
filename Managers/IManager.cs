@@ -7,7 +7,7 @@ namespace UISystem.Core
     /// Defines the contract for common manager classes.
     /// </summary>
     /// <typeparam name="TController">Type of controller that will be managed. Must implement <see cref="IController"/>.</typeparam>
-    public partial interface IManager<in TController>
+    public interface IManager<in TController>
         where TController : IController
     {
         /// <summary>

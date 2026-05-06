@@ -7,7 +7,7 @@ namespace UISystem.Core.PopupSystem
     /// A class to manage popup controllers.
     /// </summary>
     /// <typeparam name="TResult">Type of result available in popup.</typeparam>
-    public partial class PopupsManager : Manager<IPopupController>, IPopupsManager
+    public class PopupsManager : Manager<IPopupController>, IPopupsManager
     {
         /// <inheritdoc/>
         public async Task ShowPopup<TPopupView>(string message, Action<PopupResult> onHideAction = null, bool instant = false)

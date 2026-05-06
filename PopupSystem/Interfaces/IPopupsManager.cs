@@ -6,7 +6,7 @@ namespace UISystem.Core.PopupSystem
     /// <summary>
     /// Defines the contract for popups manager.
     /// </summary>
-    public partial interface IPopupsManager : IManager<IPopupController>
+    public interface IPopupsManager : IManager<IPopupController>
     {
         /// <summary>
         /// Shows the popup.

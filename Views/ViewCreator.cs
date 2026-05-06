@@ -8,7 +8,7 @@ namespace UISystem.Core.Views
     /// <typeparam name="TPrefab">Type of view prefab.</typeparam>
     /// <typeparam name="TView">Type of view.</typeparam>
     /// <typeparam name="TParent">Type of parent.</typeparam>
-    internal abstract partial class ViewCreator<TPrefab, TView, TParent> : IViewCreator<TView>
+    internal abstract class ViewCreator<TPrefab, TView, TParent> : IViewCreator<TView>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewCreator{TPrefab, TView, TParent}"/> class.

@@ -10,7 +10,7 @@ namespace UISystem.Core.PopupSystem
     /// </summary>
     /// <typeparam name="TViewCreator">Type of view creator. Must implement <see cref="IViewCreator{TView}"/>.</typeparam>
     /// <typeparam name="TView">Type of view. Must implement <see cref="IPopupView"/>.</typeparam>
-    internal abstract partial class PopupController<TViewCreator, TView>
+    internal abstract class PopupController<TViewCreator, TView>
         : Controller<TViewCreator, TView>, IPopupController
         where TViewCreator : IViewCreator<TView>
         where TView : IPopupView

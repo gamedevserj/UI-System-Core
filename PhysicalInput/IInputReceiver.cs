@@ -3,7 +3,7 @@
     /// <summary>
     /// Defines the contract for input receiver.
     /// </summary>
-    public partial interface IInputReceiver
+    public interface IInputReceiver
     {
         /// <summary>
         /// Gets a value indicating whether receiver can receive physical input.
